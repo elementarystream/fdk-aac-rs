@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "fdk-aac-rs"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-aacdec",
  "fdk-aac-rs-aacenc",
@@ -13,7 +13,7 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-aacdec"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-arith",
  "fdk-aac-rs-drc",
@@ -26,7 +26,7 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-aacenc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
  "fdk-aac-rs-pcmutils",
@@ -37,14 +37,14 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-arith"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-capi"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-aacdec",
  "fdk-aac-rs-aacenc",
@@ -53,7 +53,7 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-cli"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs",
  "fdk-aac-rs-aacdec",
@@ -63,7 +63,7 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-cref"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs",
  "fdk-aac-rs-aacdec",
@@ -82,60 +82,60 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-drc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-fdk"
-version = "0.0.1"
+version = "0.1.0"
 
 [[package]]
 name = "fdk-aac-rs-pcmutils"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-sacdec"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-sacenc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-sbrdec"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-sbrenc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-tpdec"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-tpenc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
  "fdk-aac-rs-tpdec",

@@ -28,7 +28,7 @@ checksum = "4e7648175b45a9a48536d676f68d918270699102aa8dab5496df06904c914600"
 
 [[package]]
 name = "fdk-aac-rs-aacdec"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-arith",
  "fdk-aac-rs-drc",
@@ -41,7 +41,7 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-aacenc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
  "fdk-aac-rs-pcmutils",
@@ -52,25 +52,25 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-arith"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-cref"
-version = "0.0.1"
+version = "0.1.0"
 
 [[package]]
 name = "fdk-aac-rs-drc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-fdk"
-version = "0.0.1"
+version = "0.1.0"
 
 [[package]]
 name = "fdk-aac-rs-fuzz"
@@ -86,49 +86,49 @@ dependencies = [
 
 [[package]]
 name = "fdk-aac-rs-pcmutils"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-sacdec"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-sacenc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-sbrdec"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-sbrenc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-tpdec"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
 ]
 
 [[package]]
 name = "fdk-aac-rs-tpenc"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "fdk-aac-rs-fdk",
  "fdk-aac-rs-tpdec",

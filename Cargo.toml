@@ -22,7 +22,7 @@ members = [
 exclude = ["fuzz"]
 
 [workspace.package]
-version = "0.0.1"
+version = "0.1.0"
 edition = "2021"
 rust-version = "1.85"
 license-file = "LICENSE.txt"
@@ -31,19 +31,19 @@ repository = "https://github.com/elementarystream/fdk-aac-rs"
 readme = "README.md"
 
 [workspace.dependencies]
-fdk-aac-rs-fdk = { version = "=0.0.1", path = "crates/fdk" }
-fdk-aac-rs-arith = { version = "=0.0.1", path = "crates/arith" }
-fdk-aac-rs-drc = { version = "=0.0.1", path = "crates/drc" }
-fdk-aac-rs-pcmutils = { version = "=0.0.1", path = "crates/pcmutils" }
-fdk-aac-rs-tpdec = { version = "=0.0.1", path = "crates/tpdec" }
-fdk-aac-rs-tpenc = { version = "=0.0.1", path = "crates/tpenc" }
-fdk-aac-rs-sbrdec = { version = "=0.0.1", path = "crates/sbrdec" }
-fdk-aac-rs-sacdec = { version = "=0.0.1", path = "crates/sacdec" }
-fdk-aac-rs-aacdec = { version = "=0.0.1", path = "crates/aacdec" }
-fdk-aac-rs-sbrenc = { version = "=0.0.1", path = "crates/sbrenc" }
-fdk-aac-rs-sacenc = { version = "=0.0.1", path = "crates/sacenc" }
-fdk-aac-rs-aacenc = { version = "=0.0.1", path = "crates/aacenc" }
-fdk-aac-rs = { version = "=0.0.1", path = "crates/fdk-aac-rs" }
+fdk-aac-rs-fdk = { version = "=0.1.0", path = "crates/fdk" }
+fdk-aac-rs-arith = { version = "=0.1.0", path = "crates/arith" }
+fdk-aac-rs-drc = { version = "=0.1.0", path = "crates/drc" }
+fdk-aac-rs-pcmutils = { version = "=0.1.0", path = "crates/pcmutils" }
+fdk-aac-rs-tpdec = { version = "=0.1.0", path = "crates/tpdec" }
+fdk-aac-rs-tpenc = { version = "=0.1.0", path = "crates/tpenc" }
+fdk-aac-rs-sbrdec = { version = "=0.1.0", path = "crates/sbrdec" }
+fdk-aac-rs-sacdec = { version = "=0.1.0", path = "crates/sacdec" }
+fdk-aac-rs-aacdec = { version = "=0.1.0", path = "crates/aacdec" }
+fdk-aac-rs-sbrenc = { version = "=0.1.0", path = "crates/sbrenc" }
+fdk-aac-rs-sacenc = { version = "=0.1.0", path = "crates/sacenc" }
+fdk-aac-rs-aacenc = { version = "=0.1.0", path = "crates/aacenc" }
+fdk-aac-rs = { version = "=0.1.0", path = "crates/fdk-aac-rs" }
 
 [workspace.lints.rust]
 # The port mirrors the C++ code structure closely; these lints would only add noise.
