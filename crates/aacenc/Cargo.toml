@@ -1,0 +1,25 @@
+[package]
+name = "fdk-aac-rs-aacenc"
+description = "Internal crate of fdk-aac-rs: AAC encoder core and encoder API (port of libAACenc). Not a public API; use the fdk-aac-rs crate."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license-file.workspace = true
+repository.workspace = true
+readme = "README.md"
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+# Verification only (never in a release): fills the PSY_DYNAMIC scratch of the parallel
+# psychoacoustics with pseudo-random values before every use, which must not change any output.
+verify-poison = []
+
+[dependencies]
+fdk-aac-rs-fdk.workspace = true
+fdk-aac-rs-pcmutils.workspace = true
+fdk-aac-rs-tpenc.workspace = true
+fdk-aac-rs-sbrenc.workspace = true
+fdk-aac-rs-sacenc.workspace = true

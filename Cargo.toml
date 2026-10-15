@@ -1,0 +1,111 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/fdk",
+    "crates/arith",
+    "crates/drc",
+    "crates/pcmutils",
+    "crates/tpdec",
+    "crates/tpenc",
+    "crates/sbrdec",
+    "crates/sacdec",
+    "crates/aacdec",
+    "crates/sbrenc",
+    "crates/sacenc",
+    "crates/aacenc",
+    "crates/fdk-aac-rs",
+    "crates/capi",
+    "crates/cli",
+    "crates/cref",
+]
+# The cargo-fuzz project is a workspace of its own (PORTING.md, "Differential fuzzing").
+exclude = ["fuzz"]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2021"
+rust-version = "1.85"
+license-file = "LICENSE.txt"
+authors = ["elementarystream <elementarystreamdev@gmail.com>"]
+repository = "https://github.com/elementarystream/fdk-aac-rs"
+readme = "README.md"
+
+[workspace.dependencies]
+fdk-aac-rs-fdk = { version = "=0.0.1", path = "crates/fdk" }
+fdk-aac-rs-arith = { version = "=0.0.1", path = "crates/arith" }
+fdk-aac-rs-drc = { version = "=0.0.1", path = "crates/drc" }
+fdk-aac-rs-pcmutils = { version = "=0.0.1", path = "crates/pcmutils" }
+fdk-aac-rs-tpdec = { version = "=0.0.1", path = "crates/tpdec" }
+fdk-aac-rs-tpenc = { version = "=0.0.1", path = "crates/tpenc" }
+fdk-aac-rs-sbrdec = { version = "=0.0.1", path = "crates/sbrdec" }
+fdk-aac-rs-sacdec = { version = "=0.0.1", path = "crates/sacdec" }
+fdk-aac-rs-aacdec = { version = "=0.0.1", path = "crates/aacdec" }
+fdk-aac-rs-sbrenc = { version = "=0.0.1", path = "crates/sbrenc" }
+fdk-aac-rs-sacenc = { version = "=0.0.1", path = "crates/sacenc" }
+fdk-aac-rs-aacenc = { version = "=0.0.1", path = "crates/aacenc" }
+fdk-aac-rs = { version = "=0.0.1", path = "crates/fdk-aac-rs" }
+
+[workspace.lints.rust]
+# The port mirrors the C++ code structure closely; these lints would only add noise.
+non_snake_case = "allow"
+non_camel_case_types = "allow"
+non_upper_case_globals = "allow"
+dead_code = "allow"
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(fdk_arch, values("aarch64", "x86", "x86_32", "generic"))'] }
+
+[workspace.lints.clippy]
+too_many_arguments = "allow"
+needless_range_loop = "allow"
+identity_op = "allow"
+erasing_op = "allow"
+precedence = "allow"
+collapsible_else_if = "allow"
+collapsible_if = "allow"
+manual_range_contains = "allow"
+neg_multiply = "allow"
+unnecessary_cast = "allow"
+module_inception = "allow"
+# C++ literals are kept as written; C++ control flow is kept even where branches coincide.
+excessive_precision = "allow"
+# C++ literals such as 3.1415926 differ from the exact constants and must stay as written.
+approx_constant = "allow"
+# C++ comparisons are kept as written, also where a type makes them trivially true.
+absurd_extreme_comparisons = "allow"
+if_same_then_else = "allow"
+nonminimal_bool = "allow"
+int_plus_one = "allow"
+# C++ declarations at the top of a function and C struct initialization are kept.
+needless_late_init = "allow"
+field_reassign_with_default = "allow"
+explicit_counter_loop = "allow"
+# `clamp` panics when min > max; the C++ clamps do not.
+manual_clamp = "allow"
+# C++ literals keep their digit grouping.
+unusual_byte_groupings = "allow"
+# `!(a < b)` differs from `a >= b` for NaN; the C++ comparison is kept.
+neg_cmp_op_on_partial_ord = "allow"
+# A C++ `if` inside a `case` stays an `if` (a match guard would fall through to later arms).
+collapsible_match = "allow"
+# Index clamps are written against the array size, also where a size of 1 makes them constant.
+unnecessary_min_or_max = "allow"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+debug = 1
+
+# Release with overflow checks and debug assertions: runs every cref and end-to-end test a second
+# time and finds arithmetic that relies on wrap-around (PORTING.md, "Workspace").
+[profile.checked]
+inherits = "release"
+overflow-checks = true
+debug-assertions = true
+lto = "thin"
+codegen-units = 16
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2

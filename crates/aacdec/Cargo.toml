@@ -1,0 +1,29 @@
+[package]
+name = "fdk-aac-rs-aacdec"
+description = "Internal crate of fdk-aac-rs: AAC decoder core and decoder API (port of libAACdec). Not a public API; use the fdk-aac-rs crate."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license-file.workspace = true
+repository.workspace = true
+readme = "README.md"
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+# Buffer poisoning of the frame pipeline (test builds; FDK_AAC_RS_POISON, see
+# src/pipeline/state.rs).
+poison = []
+# Negative controls of the tests that change the output (FDK_AAC_RS_DIGEST_NEGATIVE).
+test-hooks = []
+
+[dependencies]
+fdk-aac-rs-fdk.workspace = true
+fdk-aac-rs-arith.workspace = true
+fdk-aac-rs-drc.workspace = true
+fdk-aac-rs-pcmutils.workspace = true
+fdk-aac-rs-tpdec.workspace = true
+fdk-aac-rs-sbrdec.workspace = true
+fdk-aac-rs-sacdec.workspace = true

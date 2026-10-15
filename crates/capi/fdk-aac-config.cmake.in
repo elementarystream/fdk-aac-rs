@@ -1,0 +1,31 @@
+# fdk-aac-rs: Third-Party Modified Version of the Fraunhofer FDK AAC Codec Library for Android.
+# A Rust port of fdk-aac 2.0.3. See LICENSE.txt for the complete license text.
+#
+# CMake package configuration of fdk-aac-rs-capi, installed as
+# <libdir>/cmake/fdk-aac/fdk-aac-config.cmake. It provides the target of upstream's
+# configuration (fdk-aac-config.cmake.in and the exported fdk-aac-targets.cmake of v2.0.3):
+# FDK-AAC::fdk-aac, with the include directory <prefix>/include.
+#
+# The installer substitutes: @FDK_AAC_LIBRARY_TYPE@ (SHARED or STATIC), @FDK_AAC_LIBRARY@
+# (the library file relative to the prefix), @FDK_AAC_SONAME@ (the install name or soname of
+# a shared library), @FDK_AAC_LINK_LIBRARIES@ (the native libraries a static library needs).
+
+get_filename_component(_FDK_AAC_PREFIX "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
+
+if(NOT TARGET FDK-AAC::fdk-aac)
+  add_library(FDK-AAC::fdk-aac @FDK_AAC_LIBRARY_TYPE@ IMPORTED)
+  set_target_properties(FDK-AAC::fdk-aac PROPERTIES
+    IMPORTED_LOCATION "${_FDK_AAC_PREFIX}/@FDK_AAC_LIBRARY@"
+    INTERFACE_INCLUDE_DIRECTORIES "${_FDK_AAC_PREFIX}/include"
+    IMPORTED_LINK_INTERFACE_LANGUAGES "C")
+  if("@FDK_AAC_LIBRARY_TYPE@" STREQUAL "SHARED")
+    set_target_properties(FDK-AAC::fdk-aac PROPERTIES IMPORTED_SONAME "@FDK_AAC_SONAME@")
+  else()
+    set_target_properties(FDK-AAC::fdk-aac PROPERTIES
+      INTERFACE_LINK_LIBRARIES "@FDK_AAC_LINK_LIBRARIES@")
+  endif()
+endif()
+
+unset(_FDK_AAC_PREFIX)
+set(FDK-AAC_FOUND TRUE)
+set(fdk-aac_FOUND TRUE)

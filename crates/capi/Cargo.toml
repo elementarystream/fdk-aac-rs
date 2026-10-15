@@ -1,0 +1,25 @@
+[package]
+name = "fdk-aac-rs-capi"
+description = "C ABI of fdk-aac-rs, a drop-in replacement for libfdk-aac"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license-file.workspace = true
+repository.workspace = true
+readme.workspace = true
+authors.workspace = true
+publish = false
+keywords = ["aac", "audio", "codec", "ffi", "fdk-aac"]
+categories = ["multimedia::audio", "multimedia::encoding", "external-ffi-bindings"]
+
+[lints]
+workspace = true
+
+[lib]
+name = "fdk_aac"
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+fdk-aac-rs-fdk.workspace = true
+fdk-aac-rs-aacdec.workspace = true
+fdk-aac-rs-aacenc.workspace = true

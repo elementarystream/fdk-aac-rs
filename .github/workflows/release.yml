@@ -1,0 +1,103 @@
+# Publishes the crates of the workspace to crates.io when a version tag (v<version>) is pushed,
+# after the CI jobs passed. fdk-aac-rs-capi and fdk-aac-rs-cref are not published. The publish job
+# runs in the `crates-io` environment (protect it with required reviewers). Authentication:
+# crates.io trusted publishing if the repository variable CRATES_IO_TRUSTED_PUBLISHING is `true`,
+# otherwise the secret CARGO_REGISTRY_TOKEN. Then a GitHub release is created for the tag (not for
+# 0.0.x), with generated notes (the first release: the message of the initial commit).
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: ci
+    runs-on: ubuntu-24.04
+    environment: crates-io
+    # crates.io limits the rate of new crates: after the first five, one per 10 minutes
+    timeout-minutes: 180
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - run: rustup toolchain install stable --profile minimal && rustup default stable
+      - name: Check that the tag matches the version
+        run: |
+          version="$(sed -n 's/^version = "\(.*\)"$/\1/p' Cargo.toml | head -1)"
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "tag $GITHUB_REF_NAME does not match the workspace version $version" >&2
+            exit 1
+          fi
+      - uses: rust-lang/crates-io-auth-action@v1
+        id: auth
+        if: vars.CRATES_IO_TRUSTED_PUBLISHING == 'true'
+      - name: Publish the crates that are not on crates.io yet
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token || secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          # On a 429 (too many new crates), wait for the time named in the response and publish the
+          # rest; crates already on crates.io are skipped, so a failed run can be run again. The
+          # first attempt verifies the packages; retries skip the verification build.
+          set -o pipefail
+          version="${GITHUB_REF_NAME#v}"
+          packages="$(cargo metadata --no-deps --format-version 1 --locked |
+            jq -r '.packages[] | select(.publish == null) | .name')"
+          verify=()
+          for attempt in $(seq 1 30); do
+            exclude=(--exclude fdk-aac-rs-capi --exclude fdk-aac-rs-cref)
+            pending=0
+            for p in $packages; do
+              if curl -sf -o /dev/null -A "$GITHUB_REPOSITORY release workflow" \
+                "https://crates.io/api/v1/crates/$p/$version"; then
+                exclude+=(--exclude "$p")
+              else
+                pending=$((pending + 1))
+              fi
+            done
+            [ $pending -eq 0 ] && exit 0
+            echo "$pending crates to publish"
+            if cargo publish --workspace --locked "${verify[@]}" "${exclude[@]}" 2>&1 |
+              tee "$RUNNER_TEMP/publish.log"; then
+              exit 0
+            fi
+            retry="$(sed -n 's/.*status 429 .*try again after \(.* GMT\).*/\1/p' "$RUNNER_TEMP/publish.log" | head -1)"
+            [ -n "$retry" ] || exit 1
+            wait=$(( $(date -d "$retry" +%s) - $(date +%s) + 30 ))
+            echo "rate limited until $retry"
+            sleep $(( wait > 30 ? wait : 30 ))
+            verify=(--no-verify)
+          done
+          exit 1
+
+  github-release:
+    needs: publish
+    if: ${{ !startsWith(github.ref_name, 'v0.0.') }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$(gh release list --limit 1)" ]; then
+            gh release create "$GITHUB_REF_NAME" --verify-tag --generate-notes
+          else
+            # the first release: the message of the initial commit
+            git log -1 --format=%B "$(git rev-list --max-parents=0 HEAD)" > "$RUNNER_TEMP/notes.md"
+            gh release create "$GITHUB_REF_NAME" --verify-tag --notes-file "$RUNNER_TEMP/notes.md"
+          fi

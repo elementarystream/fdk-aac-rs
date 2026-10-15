@@ -1,0 +1,36 @@
+[package]
+name = "fdk-aac-rs-cli"
+description = "Command-line decoder and encoder of fdk-aac-rs, with the arguments and logs of the reference harness"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license-file.workspace = true
+repository.workspace = true
+readme.workspace = true
+authors.workspace = true
+keywords = ["aac", "audio", "codec", "decoder", "encoder"]
+categories = ["multimedia::audio", "command-line-utilities"]
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "fdk-aac-rs-dec"
+path = "src/bin/fdk-aac-rs-dec.rs"
+
+[[bin]]
+name = "fdk-aac-rs-enc"
+path = "src/bin/fdk-aac-rs-enc.rs"
+
+[features]
+# Buffer poisoning of the decoder's frame pipeline (test builds; FDK_AAC_RS_POISON).
+poison = ["fdk-aac-rs-aacdec/poison"]
+# The negative controls and poisoning of the chunked decoding (see fdk-aac-rs).
+test-hooks = ["fdk-aac-rs/test-hooks"]
+
+[dependencies]
+fdk-aac-rs-fdk.workspace = true
+fdk-aac-rs-aacdec.workspace = true
+fdk-aac-rs-aacenc.workspace = true
+# The chunked parallel decoding of fdk-aac-rs-dec (fdk_aac_rs::chunked).
+fdk-aac-rs.workspace = true

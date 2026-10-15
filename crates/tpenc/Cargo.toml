@@ -1,0 +1,17 @@
+[package]
+name = "fdk-aac-rs-tpenc"
+description = "Internal crate of fdk-aac-rs: Transport encoder: raw, ADIF, ADTS, LATM/LOAS (port of libMpegTPEnc). Not a public API; use the fdk-aac-rs crate."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license-file.workspace = true
+repository.workspace = true
+readme = "README.md"
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+fdk-aac-rs-fdk.workspace = true
+fdk-aac-rs-tpdec.workspace = true

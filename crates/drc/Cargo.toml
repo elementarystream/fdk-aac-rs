@@ -1,0 +1,16 @@
+[package]
+name = "fdk-aac-rs-drc"
+description = "Internal crate of fdk-aac-rs: MPEG-D DRC decoder (port of libDRCdec). Not a public API; use the fdk-aac-rs crate."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license-file.workspace = true
+repository.workspace = true
+readme = "README.md"
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+fdk-aac-rs-fdk.workspace = true

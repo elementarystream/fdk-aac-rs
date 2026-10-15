@@ -1,0 +1,70 @@
+// Differential tests of fdk_aac_rs_aacdec::usacdec_const against the C++ reference.
+
+use fdk_aac_rs_aacdec::usacdec_const::*;
+use fdk_aac_rs_cref::aacdec_usacdec_const as c;
+
+#[test]
+fn constants() {
+    let mut out = [0i32; 128];
+    let n = unsafe { c::cref_uconst_constants(out.as_mut_ptr()) } as usize;
+    let r = [
+        SF_CODE,
+        SF_GAIN_C,
+        SF_EXC,
+        SF_GAIN_P,
+        SF_PFAC,
+        SF_SYNTH,
+        SF_A_COEFFS,
+        SF_STAB,
+        M_LP_FILTER_ORDER,
+        LP_FILTER_SCALE,
+        PIT_MIN_12k8,
+        PIT_MAX_12k8,
+        FSCALE_DENOM,
+        FAC_FSCALE_MIN,
+        LPD_MAX_CORE_SR,
+        FAC_FSCALE_MAX,
+        PIT_MAX_TMP,
+        PIT_MAX_MAX,
+        NB_DIV,
+        L_SUBFR,
+        BPF_SFD,
+        BPF_DELAY,
+        L_FILT,
+        L_EXTRA,
+        L_INTERPOL,
+        L_FRAME_PLUS_1024,
+        L_DIV_1024,
+        NB_SUBFR_1024,
+        NB_SUBFR_SUPERFR_1024,
+        AAC_SFD_1024,
+        AAC_DELAY_1024,
+        SYN_SFD_1024,
+        SYN_DELAY_1024,
+        LFAC_1024,
+        LFAC_SHORT_1024,
+        FDNS_NPTS_1024,
+        L_FRAME_PLUS_768,
+        L_DIV_768,
+        NB_SUBFR_768,
+        NB_SUBFR_SUPERFR_768,
+        AAC_SFD_768,
+        AAC_DELAY_768,
+        SYN_SFD_768,
+        SYN_DELAY_768,
+        LFAC_768,
+        LFAC_SHORT_768,
+        L_FRAME_PLUS,
+        L_DIV,
+        NB_SUBFR,
+        NB_SUBFR_SUPERFR,
+        AAC_SFD,
+        AAC_DELAY,
+        SYN_SFD,
+        SYN_DELAY,
+        LFAC,
+        LFAC_SHORT,
+        FDNS_NPTS,
+    ];
+    assert_eq!(&out[..n], &r[..]);
+}

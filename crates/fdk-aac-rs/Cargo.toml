@@ -1,0 +1,28 @@
+[package]
+name = "fdk-aac-rs"
+description = "Bit-exact Rust port of fdk-aac 2.0.3 (Third-Party Modified Version of the Fraunhofer FDK AAC Codec Library for Android)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license-file.workspace = true
+repository.workspace = true
+readme.workspace = true
+authors.workspace = true
+keywords = ["aac", "audio", "codec", "decoder", "encoder"]
+categories = ["multimedia::audio", "multimedia::encoding"]
+
+[lints]
+workspace = true
+
+[features]
+default = ["decoder", "encoder"]
+decoder = ["dep:fdk-aac-rs-aacdec"]
+encoder = ["dep:fdk-aac-rs-aacenc"]
+# Test hooks of the chunked decoding that change the output (FDK_AAC_RS_CHUNK_NO_VERIFY,
+# FDK_AAC_RS_CHUNK_POISON, FDK_AAC_RS_CHUNK_DEBUG, FDK_AAC_RS_DIGEST_NEGATIVE).
+test-hooks = ["decoder", "fdk-aac-rs-aacdec/test-hooks"]
+
+[dependencies]
+fdk-aac-rs-fdk.workspace = true
+fdk-aac-rs-aacdec = { workspace = true, optional = true }
+fdk-aac-rs-aacenc = { workspace = true, optional = true }
