@@ -525,9 +525,10 @@ pub mod fast {
 /// `-m32 -O3`; addresses in the object files of `work/fdk-aac-asm/ref-i686`).
 ///
 /// Each block saves the caller's control word (`fnstcw`), computes with the control word of the
-/// reference's environment, [`CW_NEAREST`] (0x037f, the Linux default: exceptions masked,
-/// extended precision, round to nearest even), truncates with [`CW_CHOP`] (0x0f7f, the
-/// reference's `or $0xc00` of that control word) and restores the caller's control word
+/// reference's environment, [`CW_NEAREST`](hw::CW_NEAREST) (0x037f, the Linux default:
+/// exceptions masked, extended precision, round to nearest even), truncates with
+/// [`CW_CHOP`](hw::CW_CHOP) (0x0f7f, the reference's `or $0xc00` of that control word) and
+/// restores the caller's control word
 /// (`fldcw`). The reference computes with the control word it finds; loading 0x037f explicitly
 /// makes the results independent of the caller (e.g. a host that sets double precision).
 ///
