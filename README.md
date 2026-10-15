@@ -1,5 +1,8 @@
 # fdk-aac-rs
 
+[![crates.io](https://img.shields.io/crates/v/fdk-aac-rs.svg)](https://crates.io/crates/fdk-aac-rs)
+[![CI](https://github.com/elementarystream/fdk-aac-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/elementarystream/fdk-aac-rs/actions/workflows/ci.yml)
+
 A bit-exact Rust port of the [Fraunhofer FDK AAC Codec Library](https://github.com/mstorsjo/fdk-aac)
 2.0.3 (as distributed by mstorsjo/fdk-aac and used by FFmpeg's `libfdk_aac`), decoder and encoder.
 
